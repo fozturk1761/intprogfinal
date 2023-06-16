@@ -1,0 +1,62 @@
+<div class="container">
+  <h2>Cevaplar</h2>
+  <button mat-fab matTooltip="Cevap Ekle" color="primary" (click)="Ekle()">
+    <mat-icon aria-label="label">add</mat-icon>
+  </button>
+  <p>&nbsp;</p>
+
+  <mat-form-field appearance="outline" style="width: 50%;">
+    <mat-label>Soru Seçiniz</mat-label>
+    <mat-select placeholder="Soru Seçiniz" (selectionChange)="SoruSec($event.value)" [value]="secSoru">
+      <mat-option [value]="soru" *ngFor="let soru of sorular">{{soru.SoruAdi}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="Baslik">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Başlık
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.Baslik}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Tarih">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tarih
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.Tarih | date:'dd.MM.yyyy HH:mm:ss'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="KullaniciAdi">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Yazan
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.KullaniciAdi}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Okunma">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Okunma
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.Okunma}} </mat-cell>
+    </ng-container>
+  </mat-table>
+</div>
+
+
+
+
+
+    <ng-container matColumnDef="detay">
+      <mat-header-cell *matHeaderCellDef> İşlemler
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit">
+
+        <button mat-icon-button color="primary" matTooltip="Cevap Önizle" (click)="Detay(kayit)">
+          <mat-icon aria-label="label">search</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="Cevap Düzenle" (click)="Duzenle(kayit)">
+          <mat-icon aria-label="label">edit</mat-icon>
+        </button>
+
+
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+  </mat-paginator>

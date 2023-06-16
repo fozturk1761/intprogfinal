@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span>{{ dialogBaslik }}</span>
+</mat-toolbar>
+
+<div class="container" *ngIf="islem != 'detay'">
+  <form [formGroup]="frm">
+    <mat-form-field appearance="outline">
+      <mat-label>Soru Adı</mat-label>
+      <mat-select placeholder="Soru Seçiniz" formControlName="SoruId" required>
+        <mat-option [value]="soru.SoruId" *ngFor="let soru of sorular">{{ soru.SoruAdi }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>İçerik</mat-label>
+      <textarea matInput placeholder="İçerik" formControlName="CevapIcerik" required></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="dialogRef.close(frm.value)" [disabled]="frm.invalid">
+      Kaydet
+    </button>
+    &nbsp;
+    <button mat-raised-button color="warn" (click)="dialogRef.close()">
+      İptal
+    </button>
+    &nbsp;
+  </form>
+</div>
+
+<div class="container" *ngIf="islem == 'detay'">
+  <h2>{{ yeniKayit.CevapIcerik }}</h2>
+  <div [innerHTML]="yeniKayit.CevapIcerik | safeHtml"></div>
+  <p></p>
+  <button mat-raised-button color="warn" (click)="dialogRef.close()">
+    Kapat
+  </button>
+  &nbsp;
+</div>
